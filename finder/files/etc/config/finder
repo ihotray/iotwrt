@@ -1,0 +1,2 @@
+config finder 'global'
+    option enabled '0'
