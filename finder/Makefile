@@ -23,7 +23,7 @@ define Package/finder
 	CATEGORY:=IOTWRT
 	SUBMENU:=Applications
 	TITLE:=Finder daemon
-	DEPENDS:=+uci +libiot
+	DEPENDS:=+uci +libiot +liblua
 	MENU:=1
 endef
 
