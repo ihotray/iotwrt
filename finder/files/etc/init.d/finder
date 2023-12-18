@@ -1,0 +1,36 @@
+#!/bin/sh /etc/rc.common
+
+START=99
+STOP=11
+
+USE_PROCD=1
+BIN=/usr/bin/finder
+
+start_service() {
+    local enabled=$(uci get finder.global.enabled 2>/dev/null || echo 0)
+    [ "$enabled" -eq 0 ] && return
+
+    local service=$(uci get finder.global.service 2>/dev/null)
+    local port=$(uci get finder.global.port 2>/dev/null)
+    local callback=$(uci get finder.global.callback 2>/dev/null)
+    local data=$(uci get finder.global.data 2>/dev/null)
+
+    procd_open_instance
+    procd_set_param command $BIN
+    [ -n "$service" ] && procd_append_param command -n "$service"
+    [ -n "$port" ] && procd_append_param command -p "$port"
+    [ -n "$callback" ] && procd_append_param command -x "$callback"
+    [ -n "$data" ] && procd_append_param command -d "$data"
+    procd_set_param respawn
+    procd_close_instance
+}
+
+service_triggers()
+{
+    procd_add_reload_trigger finder
+}
+
+reload_service() {
+    stop
+    start
+}
