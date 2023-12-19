@@ -1,2 +1,5 @@
 config broadcaster 'global'
     option enabled '0'
+
+config controller 'controller'
+    option type 'auto'
