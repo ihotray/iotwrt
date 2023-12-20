@@ -39,19 +39,19 @@ define Package/libmicrodns/description
 endef
 
 define Build/InstallDev/libmicrodns
-    $(INSTALL_DIR) $(1)/usr/include/microdns
-    $(INSTALL_DIR) $(1)/usr/lib
-    $(CP) $(PKG_BUILD_DIR)/*.h $(1)/usr/include/microdns/
-    $(CP) $(PKG_BUILD_DIR)/libmicrodns*.so* $(1)/usr/lib/
+	$(INSTALL_DIR) $(1)/usr/include/microdns
+	$(INSTALL_DIR) $(1)/usr/lib
+	$(CP) $(PKG_BUILD_DIR)/*.h $(1)/usr/include/microdns/
+	$(CP) $(PKG_BUILD_DIR)/libmicrodns*.so* $(1)/usr/lib/
 endef
 
 define Build/InstallDev
-    $(call Build/InstallDev/libmicrodns,$(1),$(2))
+	$(call Build/InstallDev/libmicrodns,$(1),$(2))
 endef
 
 define Package/libmicrodns/install
-    $(INSTALL_DIR) $(1)/usr/lib
-    $(CP) $(PKG_BUILD_DIR)/libmicrodns*.so* $(1)/usr/lib/
+	$(INSTALL_DIR) $(1)/usr/lib
+	$(CP) $(PKG_BUILD_DIR)/libmicrodns*.so* $(1)/usr/lib/
 endef
 
 $(eval $(call BuildPackage,libmicrodns))
