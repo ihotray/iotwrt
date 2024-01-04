@@ -4,6 +4,9 @@ local uci = require 'uci'
 local M = {}
 
 local function discovery(address)
+
+    local inet_prefix = "inet addr:"
+
     local c = uci.cursor()
     local res = c:get_all('broadcaster', 'controller')
     if res == nil or res.type == nil or res.type ~= 'static' or res.address == nil or res.address == "" then
@@ -21,8 +24,8 @@ local function discovery(address)
             table.insert(lines, line)
         end
         for _, line in pairs(lines) do
-            if string.find(line, "inet addr:") then
-                local start_pos = string.find(line, "inet addr:") + #"inet addr:"
+            if string.find(line, inet_prefix) then
+                local start_pos = string.find(line, inet_prefix) + #inet_prefix
                 local end_pos = string.find(line, " ", start_pos + 1) - 1
                 local ip_address = string.sub(line, start_pos, end_pos)
                 return cjson.encode({ code = 0, type = 'discovery', message = 'success', data = { address = ip_address } })
