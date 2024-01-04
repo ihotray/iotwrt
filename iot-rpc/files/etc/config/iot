@@ -1,0 +1,7 @@
+config iot 'global'
+    option locale 'CN'
+
+config user
+    option username 'admin'
+    #echo -n 'admin:password' | md5sum
+    option password '73eff6386ce2091b5ca702fc007e1da9'

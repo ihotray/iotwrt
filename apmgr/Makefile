@@ -1,15 +1,15 @@
 include $(TOPDIR)/rules.mk
 include ../version.mk
 
-PKG_NAME:=broadcaster
+PKG_NAME:=apmgr
 PKG_VERSION:=1.0.0_$(strip $(call findrev))
 PKG_RELEASE:=1
 
 LOCAL_DEV:=0
 ifneq ($(LOCAL_DEV),1)
 PKG_SOURCE_PROTO=git
-PKG_SOURCE_URL:=https://github.com/ihotray/broadcaster.git
-PKG_SOURCE_VERSION:=7b4f1bd453817fb62bfd6958af9d8d23b743a4a8
+PKG_SOURCE_URL:=https://github.com/ihotray/apmgr.git
+PKG_SOURCE_VERSION:=34baaefae77e6363252a58b1a5c1a78970e009b8
 PKG_MAINTAINER:=richard.sheh
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_MIRROR_HASH:=skip
@@ -20,33 +20,30 @@ PKG_LICENSE_FILES:=LICENSE
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/broadcaster
+define Package/apmgr
 	CATEGORY:=IOTWRT
 	SUBMENU:=Applications
-	TITLE:=broadcaster daemon
+	TITLE:=apmgr daemon
 	DEPENDS:=+uci +libiot +liblua
 	MENU:=1
 endef
 
-define Package/broadcaster/description
-	broadcaster is a server daemon for service discovery via broadcast.
+define Package/apmgr/description
+	apmgr is a daemon for ap management.
 endef
 
-#CMAKE_OPTIONS:=-DCMAKE_VERBOSE_MAKEFILE:BOOL=ON
 
 ifeq ($(LOCAL_DEV),1)
 define Build/Prepare
-	$(CP) -rf ~/git/code/broadcaster/* $(PKG_BUILD_DIR)/
+	$(CP) -rf ~/git/code/apmgr/* $(PKG_BUILD_DIR)/
 endef
 endif
 
-define Package/broadcaster/install
-	$(INSTALL_DIR) $(1)/etc/config
-	$(CP) ./files/etc/config/* $(1)/etc/config/
+define Package/apmgr/install
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/etc/init.d/* $(1)/etc/init.d/
 	$(INSTALL_DIR) $(1)/www/iot
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/broadcaster $(1)/www/iot/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/apmgr $(1)/www/iot/
 endef
 
-$(eval $(call BuildPackage,broadcaster))
+$(eval $(call BuildPackage,apmgr))

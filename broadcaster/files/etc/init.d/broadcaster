@@ -4,7 +4,7 @@ START=29
 STOP=11
 
 USE_PROCD=1
-BIN=/usr/bin/broadcaster
+BIN=/www/iot/broadcaster
 
 start_service() {
     local enabled=$(uci get broadcaster.global.enabled 2>/dev/null || echo 0)
