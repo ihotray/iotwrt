@@ -7,7 +7,7 @@ PKG_VERSION:=1.0.0_$(strip $(call findrev))
 LOCAL_DEV=0
 ifneq ($(LOCAL_DEV),1)
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_VERSION:=802b2f67a71912e0aada4ff64e19748e290c53da
+PKG_SOURCE_VERSION:=a0723b885b2f8c974e7261814edf3be47c57d7ae
 PKG_SOURCE_URL:=https://github.com/ihotray/libiot.git
 PKG_MAINTAINER:=richard.sheh
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)_$(PKG_SOURCE_VERSION).tar.xz
