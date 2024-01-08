@@ -1,0 +1,57 @@
+{
+	"wireless.reload": {
+		"if_operator" : "OR",
+		"if" : [
+			{
+				"event": "iot.wireless",
+				"match": {
+					"action":"reload"
+				}
+			},
+			{
+				"event": "iot.network",
+				"match": {
+					"action":"reload"
+				}
+			}
+		],
+		"then" : [
+			{
+				"cli": "wifi reload",
+				"timeout": 10
+			}
+		]
+	},
+	"wifi_connected": {
+		"if" : [
+			{
+				"event": "wifi.sta",
+				"match": {
+					"action":"connected"
+				}
+			}
+		],
+		"then" : [
+			{
+				"cli":"/www/iot/handler/wifi_sta_event_handler connected &wifi.sta->data.ifname &wifi.sta->data.macaddr",
+				"timeout": 3
+			}
+		]
+	},
+	"wifi_disconnected": {
+		"if" : [
+			{
+				"event": "wifi.sta",
+				"match": {
+					"action":"disconnected"
+				}
+			}
+		],
+		"then" : [
+			{
+				"cli":"/www/iot/handler/wifi_sta_event_handler disconnected &wifi.sta->data.macaddr",
+				"timeout": 3
+			}
+		]
+	}
+}

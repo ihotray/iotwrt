@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# sdk->send ubus event to rulengd-> call this script to handle event
+# ubus send wifi.sta '{"action":"connected", "data": {"ifname": "wlan1", "macaddr": "11:22:33:44:55:66"}}'
+# ubus send wifi.sta '{"action":"disconnected", "data": {"macaddr": "11:22:33:44:55:66"}}'
+
+sta_dir=/tmp/iot/wifi/sta
+
+mkdir -p $sta_dir
+
+if [ "$1" = "connected" ]; then
+    ifname=$2
+    macaddr=$3
+    [ "$ifname" != "" -a "$macaddr" != "" ] && echo $ifname > $sta_dir/$macaddr
+elif [ "$1" = "disconnected" ]; then
+    macaddr=$2
+    [ "$macaddr" != "" ] && rm -f $sta_dir/$macaddr
+fi
