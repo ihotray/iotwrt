@@ -1,5 +1,5 @@
 include $(TOPDIR)/rules.mk
-include ../../version.mk
+include ../version.mk
 
 PKG_NAME:=rulengd
 PKG_VERSION:=1.2.9_$(strip $(call findrev))
