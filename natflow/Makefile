@@ -10,14 +10,14 @@ include ../version.mk
 include $(INCLUDE_DIR)/kernel.mk
 
 PKG_NAME:=natflow
-PKG_VERSION:=20240104_$(strip $(call findrev))
+PKG_VERSION:=20240115_$(strip $(call findrev))
 PKG_RELEASE:=1
 
 LOCAL_DEV:=0
 ifneq ($(LOCAL_DEV),1)
 PKG_SOURCE_PROTO=git
 PKG_SOURCE_URL:=https://github.com/ihotray/natflow.git
-PKG_SOURCE_VERSION:=d240163aab32cc95a060cac35cf5038607dd27c2
+PKG_SOURCE_VERSION:=d7c32d61347bbac5a601734275c00071a308d9ed
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_MIRROR_HASH:=skip
 endif
