@@ -48,8 +48,7 @@ define Package/rulengd/install
 	$(INSTALL_DIR) $(1)/www/iot/config $(1)/www/iot/handler
 	$(CP) ./files/www/iot/config/* $(1)/www/iot/config
 	$(INSTALL_BIN) ./files/www/iot/handler/* $(1)/www/iot/handler/
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/rulengd $(1)/usr/bin/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/rulengd $(1)/www/iot
 endef
 
 $(eval $(call BuildPackage,rulengd))
