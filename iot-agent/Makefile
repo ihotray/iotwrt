@@ -9,7 +9,7 @@ LOCAL_DEV:=0
 ifneq ($(LOCAL_DEV),1)
 PKG_SOURCE_PROTO=git
 PKG_SOURCE_URL:=https://github.com/ihotray/iot-agent.git
-PKG_SOURCE_VERSION:=54c2df81fa4555d5c2fa7f021b6b681bf4114234
+PKG_SOURCE_VERSION:=24111b43f30acc9d359927e92b8c01c17e7e78f1
 PKG_MAINTAINER:=richard.sheh
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_MIRROR_HASH:=skip
@@ -24,7 +24,7 @@ define Package/iot-agent
 	CATEGORY:=IOTWRT
 	SUBMENU:=Applications
 	TITLE:=iot-agent
-	DEPENDS:=+libiot +iot-mqtt +iot-rpcd
+	DEPENDS:=+libiot +iot-mqtt +iot-rpcd +liblua
 	MENU:=1
 endef
 
