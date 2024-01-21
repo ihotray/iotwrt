@@ -1,0 +1,9 @@
+config agent 'global'
+    option enabled '1'
+    option interface 'lan'
+#   option username ''
+#   option password ''
+    option callback '/www/iot/handler/iot-agent.lua'
+    option proto 'mqtts'
+    option port '18883'
+    option controller "-"

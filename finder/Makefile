@@ -32,6 +32,10 @@ define Package/finder/description
 	finder is a client daemon for service discovery via broadcast.
 endef
 
+define Package/finder/conffiles
+/etc/config/finder
+endef
+
 #CMAKE_OPTIONS:=-DCMAKE_VERBOSE_MAKEFILE:BOOL=ON
 
 ifeq ($(LOCAL_DEV),1)
@@ -45,8 +49,9 @@ define Package/finder/install
 	$(CP) ./files/etc/config/* $(1)/etc/config/
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/etc/init.d/* $(1)/etc/init.d/
-	$(INSTALL_DIR) $(1)/www/iot
+	$(INSTALL_DIR) $(1)/www/iot/handler
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/finder $(1)/www/iot
+	$(CP) ./files/www/iot/handler/* $(1)/www/iot/handler
 endef
 
 $(eval $(call BuildPackage,finder))
