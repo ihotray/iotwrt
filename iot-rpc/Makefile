@@ -9,7 +9,7 @@ LOCAL_DEV:=0
 ifneq ($(LOCAL_DEV),1)
 PKG_SOURCE_PROTO=git
 PKG_SOURCE_URL:=https://github.com/ihotray/iot-rpc.git
-PKG_SOURCE_VERSION:=bb9a2208107d72bf7f97da56d949bcf62874037f
+PKG_SOURCE_VERSION:=0f0fdcb0611a0abfa536fd714e68f5ebe6a3606e
 PKG_MAINTAINER:=richard.sheh
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_MIRROR_HASH:=skip
@@ -24,7 +24,7 @@ define Package/iot-rpc
 	CATEGORY:=IOTWRT
 	SUBMENU:=Applications
 	TITLE:=iot-rpc
-	DEPENDS:=+lua-cjson +liblua +libuci-lua +libubus-lua
+	DEPENDS:=+lua-cjson +liblua +libuci-lua +libubus-lua +luaposix
 	MENU:=1
 endef
 
