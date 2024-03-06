@@ -40,7 +40,9 @@ endif
 
 define Package/iot-http/install
 	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_DIR) $(1)/etc/config
 	$(INSTALL_BIN) ./files/etc/init.d/* $(1)/etc/init.d/
+	$(INSTALL_BIN) ./files/etc/config/* $(1)/etc/config/
 	$(INSTALL_DIR) $(1)/www/iot
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/iot-http $(1)/www/iot
 endef

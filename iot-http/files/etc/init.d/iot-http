@@ -4,8 +4,20 @@ START=91
 USE_PROCD=1
 
 start_service() {
+    local l e L c k s m d v
+
+    l=$(uci get iot-http.global.http_host 2>/dev/null || echo "http://0.0.0.0:8080")
+    e=$(uci get iot-http.global.https_enable 2>/dev/null || echo "0")
+    L=$(uci get iot-http.global.https_host 2>/dev/null || echo "https://0.0.0.0:8443")
+    c=$(uci get iot-http.global.cert_file 2>/dev/null || echo "")
+    k=$(uci get iot-http.global.key_file 2>/dev/null || echo "")
+    s=$(uci get iot-http.global.mqtt_host 2>/dev/null || echo "mqtt://127.0.0.1:11883")
+    m=$(uci get iot-http.global.mode 2>/dev/null || echo "dev")
+    d=$(uci get iot-http.global.web_root 2>/dev/null || echo "/www/iot/web_root")
+    v=$(uci get iot-http.global.log_lvl 2>/dev/null || echo "2")
+
     procd_open_instance
-    procd_set_param command /www/iot/iot-http -m dev
+    procd_set_param command /www/iot/iot-http -l $l -e $e -L $L -c $c -k $k -s $s -m $m -d $d -v $v
     #procd_set_param stdout 1
     #procd_set_param stderr 1
     procd_set_param respawn
