@@ -44,7 +44,7 @@ endif
 
 define Package/iot-agent/install
 	$(INSTALL_DIR) $(1)/etc/init.d $(1)/etc/config
-	$(INSTALL_BIN) ./files/etc/init.d/agent $(1)/etc/init.d/
+	$(INSTALL_BIN) ./files/etc/init.d/* $(1)/etc/init.d/
 	$(CP) ./files/etc/config/agent $(1)/etc/config
 	$(INSTALL_DIR) $(1)/www/iot/handler
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/iot-agent $(1)/www/iot
