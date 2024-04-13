@@ -11,6 +11,16 @@ start_service() {
         echo "iot-provision disabled" >&2
         return
     }
+
+    local username=$(uci get agent-cloud.global.username 2>/dev/null)
+    local password=$(uci get agent-cloud.global.password 2>/dev/null)
+    local address=$(uci get agent-cloud.global.address 2>/dev/null)
+
+    [ -n "$username" -a -n "$password" -a -n "$address" ] && {
+        echo "provision finished" >&2
+        return
+    }
+
     . /lib/functions/network.sh
 
     local interface=$(uci get provision.global.interface 2>/dev/null)

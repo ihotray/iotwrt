@@ -24,6 +24,7 @@ M.on_message = function(params)
         c:set('agent-cloud', 'global', 'password', msg.data.password)
         c:set('agent-cloud', 'global', 'address', msg.data.address)
         c:commit('agent-cloud')
+        os.execute('/etc/init.d/agent-cloud restart')
         return cjson.encode({ code = 0 })
     end
 
