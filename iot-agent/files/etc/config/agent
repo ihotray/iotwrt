@@ -1,5 +1,5 @@
 config agent 'global'
-    option enabled '1'
+    option enabled '0'
     option interface 'lan'
 #   option username ''
 #   option password ''

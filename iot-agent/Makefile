@@ -34,6 +34,7 @@ endef
 
 define Package/iot-agent/conffiles
 /etc/config/agent
+/etc/config/agent-cloud
 endef
 
 ifeq ($(LOCAL_DEV),1)
@@ -45,10 +46,10 @@ endif
 define Package/iot-agent/install
 	$(INSTALL_DIR) $(1)/etc/init.d $(1)/etc/config
 	$(INSTALL_BIN) ./files/etc/init.d/* $(1)/etc/init.d/
-	$(CP) ./files/etc/config/agent $(1)/etc/config
+	$(CP) ./files/etc/config/* $(1)/etc/config
 	$(INSTALL_DIR) $(1)/www/iot/handler
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/iot-agent $(1)/www/iot
-	$(CP) ./files/www/iot/handler/iot-agent.lua $(1)/www/iot/handler
+	$(CP) ./files/www/iot/handler/* $(1)/www/iot/handler
 endef
 
 $(eval $(call BuildPackage,iot-agent))

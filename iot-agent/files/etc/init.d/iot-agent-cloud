@@ -2,7 +2,7 @@
 
 START=92
 USE_PROCD=1
-SRC_BIN=/usr/bin/iot-agent
+SRC_BIN=/www/iot/iot-agent
 BIN=/www/iot/iot-agent-cloud
 
 start_service() {
@@ -16,7 +16,7 @@ start_service() {
     local username=$(uci get agent-cloud.global.username 2>/dev/null)
     local password=$(uci get agent-cloud.global.password 2>/dev/null)
     local callback=$(uci get agent-cloud.global.callback 2>/dev/null)
-    local address=$(uci get agent-cloud.global.controller 2>/dev/null)
+    local address=$(uci get agent-cloud.global.address 2>/dev/null)
 
     [ -z "$username" -o -z "$password" -o -z "$address" ] && {
         echo "You must specify an server info" >&2
@@ -28,11 +28,11 @@ start_service() {
     }
 
     [ -f $BIN ] || {
-        ln -s $SRC_BIN $BIN
+        ln -sf $SRC_BIN $BIN
     }
 
     procd_open_instance
-    procd_set_param command $BIN -S $address -u $username -p $password
+    procd_set_param command $BIN -S $address -u $username -p $password -A 60
     [ -n "$callback" ] && procd_append_param command -x "$callback"
     #procd_set_param stdout 1
     #procd_set_param stderr 1
