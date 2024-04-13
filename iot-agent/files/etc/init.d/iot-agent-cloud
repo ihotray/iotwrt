@@ -1,0 +1,46 @@
+#!/bin/sh /etc/rc.common
+
+START=92
+USE_PROCD=1
+SRC_BIN=/usr/bin/iot-agent
+BIN=/www/iot/iot-agent-cloud
+
+start_service() {
+
+    local enabled=$(uci get agent-cloud.global.enabled 2>/dev/null || echo 0)
+    [ "$enabled" -eq 0 ] && {
+        echo "iot-agent-cloud disabled" >&2
+        return
+    }
+
+    local username=$(uci get agent-cloud.global.username 2>/dev/null)
+    local password=$(uci get agent-cloud.global.password 2>/dev/null)
+    local callback=$(uci get agent-cloud.global.callback 2>/dev/null)
+    local address=$(uci get agent-cloud.global.controller 2>/dev/null)
+
+    [ -z "$username" -o -z "$password" -o -z "$address" ] && {
+        echo "You must specify an server info" >&2
+        return
+    }
+
+    [ -z "$callback" ] && {
+        callback="none.lua"
+    }
+
+    [ -f $BIN ] || {
+        ln -s $SRC_BIN $BIN
+    }
+
+    procd_open_instance
+    procd_set_param command $BIN -S $address -u $username -p $password
+    [ -n "$callback" ] && procd_append_param command -x "$callback"
+    #procd_set_param stdout 1
+    #procd_set_param stderr 1
+    procd_set_param respawn 3600 5 86400
+    procd_close_instance
+}
+
+
+reload_service() {
+    procd_send_signal iot-agent-cloud
+}
