@@ -1,11 +1,45 @@
 #!/bin/sh /etc/rc.common
 
-START=91
+START=90
 USE_PROCD=1
+BIN=/www/iot/iot-provision
 
 start_service() {
+
+    local enabled=$(uci get provision.global.enabled 2>/dev/null || echo 0)
+    [ "$enabled" -eq 0 ] && {
+        echo "iot-provision disabled" >&2
+        return
+    }
+    . /lib/functions/network.sh
+
+    local interface=$(uci get provision.global.interface 2>/dev/null)
+    local sn=$(uci get provision.global.sn 2>/dev/null)
+    local key=$(uci get provision.global.key 2>/dev/null)
+    local secret=$(uci get provision.global.secret 2>/dev/null)
+    local callback=$(uci get provision.global.callback 2>/dev/null)
+
+    local ifname
+    [ -n "$interface" ] && network_get_device ifname "$interface"
+
+    [ -z "$ifname" -a -z "$sn" ] && {
+        echo "You must specify an interface or sn" >&2
+        return
+    }
+
+    [ -z "$sn" ] && {
+        sn=$(sed 's/://g' /sys/class/net/$ifname/address)
+    }
+
+    [ -z "$key" -o -z "$secret" ] && {
+        echo "You must specify key and secret" >&2
+        return
+    }
+
+
     procd_open_instance
-    procd_set_param command /www/iot/iot-provision
+    procd_set_param command $BIN -n $sn -u $key -p $secret
+    [ -n "$callback" ] && procd_append_param command -x "$callback"
     #procd_set_param stdout 1
     #procd_set_param stderr 1
     procd_set_param respawn

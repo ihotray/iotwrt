@@ -1,0 +1,6 @@
+config provision 'global'
+    option enabled '1'
+#   option sn ''
+    option interface 'lan'
+    option key '9b0385333c54835d6f91d34b1c54f769'
+    option secret 'ecf76dcb2830dfffb9091a1363c68db5'
