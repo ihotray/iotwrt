@@ -9,7 +9,7 @@ LOCAL_DEV:=0
 ifneq ($(LOCAL_DEV),1)
 PKG_SOURCE_PROTO=git
 PKG_SOURCE_URL:=https://github.com/ihotray/iot-http.git
-PKG_SOURCE_VERSION:=fca09ed0fa2570ecc7a8a59b50c249716292f79b
+PKG_SOURCE_VERSION:=a675cd4321896db217fe07e81d937b4daf134dd2
 PKG_MAINTAINER:=richard.sheh
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_MIRROR_HASH:=skip
@@ -31,6 +31,14 @@ endef
 define Package/iot-http/description
 	iot-http, a simple http server for iot devices.
 endef
+
+define Package/iot-http/config
+	source "$(SOURCE)/Config.in"
+endef
+
+ifeq ($(CONFIG_ONE_DEVICE_LOGGED_IN_LIMIT),y)
+TARGET_CFLAGS += -DONE_DEVICE_LOGGED_IN_LIMIT
+endif
 
 ifeq ($(LOCAL_DEV),1)
 define Build/Prepare
