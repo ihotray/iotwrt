@@ -32,6 +32,10 @@ define Package/iot-rpc/description
 	iot-rpc, a rpc function set for iot devices.
 endef
 
+define Package/iot-rpc/config
+	source "$(SOURCE)/Config.in"
+endef
+
 ifeq ($(LOCAL_DEV),1)
 define Build/Prepare
 	$(CP) -rf ~/git/code/iot-rpc/* $(PKG_BUILD_DIR)/
@@ -51,6 +55,13 @@ define Package/iot-rpc/install
 	$(CP) $(PKG_BUILD_DIR)/lib/md5.so $(1)/usr/lib/lua/iot
 	$(CP) $(PKG_BUILD_DIR)/lib/fs.so $(1)/usr/lib/lua/iot/internal
 	$(CP) $(PKG_BUILD_DIR)/lib/network.so $(1)/usr/lib/lua/iot/internal
+
+ifeq ($(CONFIG_IOT_RPC_LUA_SCRIPT_OBFUSCATED), y)
+	find $(1)/www/iot/ -name "*.lua" -exec $(STAGING_DIR_HOSTPKG)/bin/luac -o {} {} ";"
+	find $(1)/usr/share/iot -name "*.lua" -exec $(STAGING_DIR_HOSTPKG)/bin/luac -o {} {} ";"
+	find $(1)/usr/lib/lua/iot -name "*.lua" -exec $(STAGING_DIR_HOSTPKG)/bin/luac -o {} {} ";"
+endif
+
 endef
 
 $(eval $(call BuildPackage,iot-rpc))

@@ -1,0 +1,17 @@
+#
+# Copyright (C) 2010-2024 OpenWrt.org
+#
+# This is free software, licensed under the GNU General Public License v2.
+# See /LICENSE for more information.
+#
+
+if PACKAGE_iot-rpc
+comment "Build Options"
+
+config IOT_RPC_LUA_SCRIPT_OBFUSCATED
+	bool "Enable iot rpc lua scripts obfuscated"
+	default n
+	help
+		iot rpc lua scripts obfuscated
+
+endif
