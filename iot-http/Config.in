@@ -8,10 +8,18 @@
 if PACKAGE_iot-http
 comment "Build Options"
 
-config ONE_DEVICE_LOGGED_IN_LIMIT
-	bool "Enable only one device logged in at the same time"
+config ONE_DEVICE_LOGIN_LIMIT
+	bool "Enable only one device login at the same time, the latest device will login failed"
 	default n
 	help
-		only one device logged in at the same time
+		only one device logged in at the same time, the latest device will login failed
+
+
+config ONE_DEVICE_LOGIN_LIMIT_WITH_REPLACING
+	bool "Enable replacing the last one, the latest device will login successful"
+	depends on ONE_DEVICE_LOGIN_LIMIT
+	default n
+	help
+		replacing the last one, the latest device will login successful
 
 endif
