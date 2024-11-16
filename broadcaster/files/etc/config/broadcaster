@@ -1,6 +1,0 @@
-config broadcaster 'global'
-    option enabled '1'
-    option service 'acap'
-
-config controller 'controller'
-    option type 'auto'
