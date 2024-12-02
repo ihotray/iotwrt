@@ -30,13 +30,10 @@ iot feeds
 
 - 远程 rpc 调用 controller，管理连接到本地的 agent。
 
-## broadcaster
 
-- 广播发现服务端
+## iot-finder
 
-## finder
-
-- 广播发现客户端
+- 服务发现server 和 client。
 
 ## rulengd
 
