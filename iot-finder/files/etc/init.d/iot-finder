@@ -4,16 +4,16 @@ START=99
 STOP=11
 
 USE_PROCD=1
-BIN=/www/iot/finder
+BIN=/www/iot/iot-finder
 
 start_service() {
-    local enabled=$(uci get finder.global.enabled 2>/dev/null || echo 0)
+    local enabled=$(uci get iot-finder.global.enabled 2>/dev/null || echo 0)
     [ "$enabled" -eq 0 ] && return
 
-    local service=$(uci get finder.global.service 2>/dev/null)
-    local port=$(uci get finder.global.port 2>/dev/null)
-    local callback=$(uci get finder.global.callback 2>/dev/null)
-    local data=$(uci get finder.global.data 2>/dev/null)
+    local service=$(uci get iot-finder.global.service 2>/dev/null)
+    local port=$(uci get iot-finder.global.port 2>/dev/null)
+    local callback=$(uci get iot-finder.global.callback 2>/dev/null)
+    local data=$(uci get iot-finder.global.data 2>/dev/null)
 
     procd_open_instance
     procd_set_param command $BIN
@@ -27,7 +27,7 @@ start_service() {
 
 service_triggers()
 {
-    procd_add_reload_trigger finder
+    procd_add_reload_trigger iot-finder
 }
 
 reload_service() {
