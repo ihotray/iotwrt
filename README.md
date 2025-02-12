@@ -276,12 +276,13 @@ POST http://<host>[:<port>]/api
 
 - uri  
    `/websocket` 本机调用  
-   `/device/{devid}/websocket` 远程调用
+   `/device/{devid}/websocket` 远程调用，当{devid}为特定设备的id时，和单设备通讯。当为$all时，和所有设备通讯，并可以通过filter字段之和部分设备通信。
 
 ```
 {
     method : "method_name",
-    param  : [] or {}
+    param  : [] or {},
+    filter : [ "devid1", "devid2", ... ] //可选
 }
 ```
 
