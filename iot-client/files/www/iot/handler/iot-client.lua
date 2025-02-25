@@ -14,13 +14,12 @@ local function get_config()
     local config = {
         code = 0,
         data = {
-            scheme = "mqtts",
-            host = "mqtt.eclipse.org",
-            port = 1883,
-            user = "",
-            password = "",
+            address = "mqtt://10.5.2.37:11883",
+            user = "test",
+            password = "test",
             client_id = 'test',
-            topic = {"topic1", "topic2"},
+            topic_sub = "topic1",
+            topic_pub = "topic2",
             qos = 0,
             keepalive = 60
         }
