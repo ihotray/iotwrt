@@ -1,0 +1,47 @@
+[
+  {
+    "object": "iot-ubusd",
+    "method": [
+      {
+        "name": "iot-rpc",
+        "param": [
+          {
+            "name": "method",
+            "type": "BLOBMSG_TYPE_STRING"
+          },
+          {
+            "name": "param",
+            "type": "BLOBMSG_TYPE_ARRAY"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "object": "iot-ubusd-sample",
+    "method": [
+      {
+        "name": "set",
+        "param": [
+          {
+            "name": "method",
+            "type": "BLOBMSG_TYPE_STRING"
+          },
+          {
+            "name": "param",
+            "type": "BLOBMSG_TYPE_TABLE"
+          }
+        ]
+      },
+      {
+        "name": "get",
+        "param": [
+          {
+            "name": "data",
+            "type": "BLOBMSG_TYPE_UNSPEC"
+          }
+        ]
+      }
+    ]
+  }
+]
