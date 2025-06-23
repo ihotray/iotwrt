@@ -227,7 +227,7 @@ POST http://<host>[:<port>]/api
   ```
   1. 被控端设备(如ap)的iot-agent使用-u {devid}参数 连接到控制端（如ac）
 
-  2. 控制端publish 请求如：'{"method": "method_name", "param" : []  or {} }' 到主题 device/{devid}/rpc/request/{app_topic_prefix}/{reqid}
+  2. 控制端publish 请求如：'{"method": "method_name", "param" : []  or {} }' 到主题 device/{devid}/rpc/request/{app_topic_prefix}/{reqid}，注：devid为$all时，和所有设备通讯，并可以通过filter字段之和部分设备通信。
 
   3. 控制端subscribe 主题 device/+/rpc/response/{app_topic_prefix}/+ 用来接收回复，
   被控端iot-agent会将回复publish到主题 device/{devid}/rpc/response/{app_topic_prefix}/{reqid}
@@ -275,15 +275,21 @@ POST http://<host>[:<port>]/api
 ### request
 
 - uri  
-   `/websocket` 本机调用  
-   `/device/{devid}/websocket` 远程调用，当{devid}为特定设备的id时，和单设备通讯。当为$all时，和所有设备通讯，并可以通过filter字段之和部分设备通信。
+   `/websocket`  
+   ~~`/device/{devid}/websocket` 远程调用，当{devid}为特定设备的id时，和单设备通讯。当为$all时，和所有设备通讯，并可以通过filter字段之和部分设备通信。~~
 
 ```
-{
+[{devid}]{
     method : "method_name",
     param  : [] or {},
     filter : [ "devid1", "devid2", ... ] //可选
 }
+如：
+[testdevid]{
+	"method": "call",
+	"param": ["ubus", "call", {"object": "system", "method": "board"}]
+}
+为了复用websocket链接，请求改为[{devid}]{msgbody}的形式。{devid}为$rpcd时，为本机请求，当{devid}为特定设备的id时，和单设备通讯。当{devid}为$all时，和所有设备通讯，并可以通过filter字段之和部分设备通信。
 ```
 
 ### response
