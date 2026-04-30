@@ -1,2 +1,0 @@
-config rule
-    option recipe "/www/iot/config/rulengd.json"

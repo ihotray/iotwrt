@@ -1,3 +1,0 @@
-config finder 'global'
-    option enabled '1'
-    option service 'acap'
